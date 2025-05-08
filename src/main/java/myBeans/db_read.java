@@ -69,6 +69,7 @@ public class db_read {
             		}
             		result.add("success");
             		result.add(user_mail);
+            		result.add(db_id);
             		System.out.println(result);
             		return result;
             	}else {

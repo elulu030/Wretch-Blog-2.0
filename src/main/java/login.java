@@ -33,7 +33,7 @@ public class login extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("user_name") != null) {
-			response.sendRedirect("index.html");
+			response.sendRedirect("postForm.jsp");
         } else {
         	 response.sendRedirect("login_Form.jsp");
         }
@@ -52,7 +52,7 @@ public class login extends HttpServlet {
 
 	    if ("admin".equals(user) && "admin".equals(pass)) {
 	        session.setAttribute("user_name", "admin");
-	        response.sendRedirect("index.html");
+	        response.sendRedirect("postForm.jsp");
 	        return;
 	    }
 	    
@@ -68,7 +68,8 @@ public class login extends HttpServlet {
 	        switch (status) {
 	            case "success":
 	                session.setAttribute("user_name", result.get(1));
-	                response.sendRedirect("index.html");
+	                session.setAttribute("user_id", result.get(2));
+	                response.sendRedirect("postForm.jsp");
 	                break;
 
 	            case "false_user":
