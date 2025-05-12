@@ -41,7 +41,7 @@
     if (errorMessage != null) {
 %>
     <script>
-        alert("<%= errorMessage %>");
+        alert("<%= errorMessage %>"); 
     </script>
 <%
     }
@@ -56,9 +56,23 @@
                     <label for="title" class="form-label">標題</label>
                     <input type="text" class="form-control" id="title" name="title" required maxlength="100">
                 </div>
+                <%
+				    String userName = (String) session.getAttribute("user_name");
+				    if (userName == null) {
+				        userName = "";
+				    }
+				%>
                 <div class="mb-3">
                     <label for="author" class="form-label">作者暱稱</label>
-                    <input type="text" class="form-control" id="author" name="author" required maxlength="30">
+                    <input type="text" class="form-control" id="author" name="author" required maxlength="30" value="<%= userName %>">
+                </div>
+                <div class="mb-3"> 
+				    <input class="form-check-input" type="checkbox" id="needPwd" onclick="togglePwdInput()">
+				    <label class="form-check-label" for="needPwd">需要密碼</label>
+				</div>
+                <div class="mb-3" id="pwdGroup" style="display: none;">
+                    <label for="pwd" class="form-label">密碼(限數字)</label>
+                    <input type="number" class="form-control" id="pwd" name="pwd" maxlength="15">
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label">內容</label>
@@ -71,5 +85,13 @@
         </div>
     </div>
 </div>
+<script>
+    function togglePwdInput() {
+        const checkbox = document.getElementById("needPwd");
+        const pwdGroup = document.getElementById("pwdGroup");
+        pwdGroup.style.display = checkbox.checked ? "block" : "none";
+    }
+</script>
 </body>
 </html> 
+

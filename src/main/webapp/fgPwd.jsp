@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ include file="/WEB-INF/config.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,6 +106,7 @@ input{
             <input type="text" id="phone" name="phone" placeholder="手機電話" required>
         <div class="tab"></div>            
             <input type="submit" value="取回密碼" class="submit">
+        <input type="hidden" name="baseurl" id="baseurl" value="${baseURL}">
      </form>  
     <h5 onclick="goToLogin()">返回登入</h5>
 	<div id="msg" style="color:red;"></div>

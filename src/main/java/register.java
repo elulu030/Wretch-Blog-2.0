@@ -37,23 +37,27 @@ public class register extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // 獲取表單提交的資料
-	    String msg, userMail, password, phone, sex;
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+	    String msg, userMail, password, phone, sex, baseurl, name;
 	    userMail = request.getParameter("user");
 	    password = request.getParameter("register_password");
 	    sex = request.getParameter("sex");
 	    phone = request.getParameter("phone");
+	    baseurl = request.getParameter("baseurl");
+	    name = request.getParameter("name");
 
 	    // 生成驗證碼
 	    Random rand = new Random();
 	    int identifyCode = rand.nextInt(900) + 100;
 
 	    myBeans.db_write write = new myBeans.db_write();
-	    String result = write.db_insert(userMail, password, sex, phone, identifyCode);
+	    String result = write.db_insert(userMail, password, sex, phone, identifyCode, name);
 
 	    if ("success".equals(result)) {
 	    	try {
 	    		myBeans.sendMail mailSender = new myBeans.sendMail();
-	    		boolean success = mailSender.sendVerificationEmail(userMail, identifyCode);
+	    		boolean success = mailSender.sendVerificationEmail(userMail, identifyCode, baseurl);
 	    		if(success) {
 	    			msg = "驗證信已寄出";
 	                request.setAttribute("errorMessage", msg);

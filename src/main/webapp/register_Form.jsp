@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/config.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,7 @@
 	<label for="phone">Phone:</label>
 	<input type="text" name="phone" id="phone">
 	<br>
+	<input type="hidden" name="baseurl" id="baseurl" value="${baseURL}">
 	<input type="submit" value="send">
 	</form>
 	<button onclick="goToLogin()">返回登入</button>

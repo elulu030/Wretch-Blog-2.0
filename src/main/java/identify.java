@@ -58,7 +58,7 @@ public class identify extends HttpServlet {
 		 if (result != null && !result.isEmpty()) {
 			 switch (result) {
 	            case "true":
-	                response.sendRedirect("index.html");
+	                response.sendRedirect("/jakartaee-hello-world/index");
 	                break;
 
 	            case "false_already":

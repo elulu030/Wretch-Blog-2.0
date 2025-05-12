@@ -45,7 +45,7 @@ public class logout extends HttpServlet {
             }
         }
 
-        response.sendRedirect("login_Form.jsp");
+        response.sendRedirect("/jakartaee-hello-world/index");
     }
 
     @Override

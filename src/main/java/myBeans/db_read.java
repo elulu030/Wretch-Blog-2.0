@@ -32,6 +32,7 @@ public class db_read {
     	String db_pass=null;
     	String db_id=null;
     	String db_sex=null;
+    	String db_name=null;
     	int code;
     	int active = 0;
     	ArrayList<String> result = new ArrayList<String>();
@@ -54,6 +55,7 @@ public class db_read {
             		db_sex =rs.getString(4);
             		code =rs.getInt(6);
             		active=rs.getInt(7);
+            		db_name=rs.getString(8);
             }
             System.out.println(db_user+","+user_mail);
             System.out.println(db_pass+","+pass);
@@ -68,7 +70,7 @@ public class db_read {
             			return result;
             		}
             		result.add("success");
-            		result.add(user_mail);
+            		result.add(db_name);
             		result.add(db_id);
             		System.out.println(result);
             		return result;

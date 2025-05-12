@@ -29,7 +29,7 @@ public class sendMail {
          });
      }
   	
-  	public boolean sendVerificationEmail(String recipient, int identifyCode) {
+  	public boolean sendVerificationEmail(String recipient, int identifyCode, String baseurl) {
   		 try {
              MimeMessage msg = new MimeMessage(session);
 
@@ -41,8 +41,8 @@ public class sendMail {
 
              MimeBodyPart htmlPart = new MimeBodyPart();
              String htmlContent = String.format(
-                 "<a href='http://localhost:8080/jakartaee-hello-world/identify?identify_code=%d&&user_mail=%s'><b>hello %s，您的驗證碼是 %d，或點擊連結登入</b></a>",
-                 identifyCode, recipient, recipient, identifyCode
+                 "<a href='%s/jakartaee-hello-world/identify?identify_code=%d&&user_mail=%s'><b>hello %s，您的驗證碼是 %d，或點擊連結登入</b></a>",
+                 baseurl,identifyCode, recipient, recipient, identifyCode
              );
              htmlPart.setContent(htmlContent, "text/html;charset=UTF-8");
 
@@ -59,7 +59,7 @@ public class sendMail {
          }
      }
   	
-  	public boolean sendPwdEmail(String recipient, String pwd) {
+  	public boolean sendPwdEmail(String recipient, String pwd, String baseurl) {
  		 try {
             MimeMessage msg = new MimeMessage(session);
 
@@ -71,8 +71,8 @@ public class sendMail {
 
             MimeBodyPart htmlPart = new MimeBodyPart();
             String htmlContent = String.format(
-                "<a href='http://localhost:8080/jakartaee-hello-world/login'><b>hello %s，您的密碼是 %s，點擊連結登入</b></a>",
-                	recipient, pwd
+                "<a href='%s/jakartaee-hello-world/login'><b>hello %s，您的密碼是 %s，點擊連結登入</b></a>",
+                baseurl,recipient, pwd
             );
             htmlPart.setContent(htmlContent, "text/html;charset=UTF-8");
 

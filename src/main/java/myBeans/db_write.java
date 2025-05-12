@@ -27,7 +27,7 @@ public class db_write {
              }
     }
 	
-    public String db_insert(String user_mail,String password,String sex,String phone,int identify_code) {
+    public String db_insert(String user_mail,String password,String sex,String phone,int identify_code, String name) {
         try {
         	int counter = 0;
         	String sql_user = "SELECT * FROM account WHERE user_mail = ?";
@@ -41,7 +41,7 @@ public class db_write {
     			return "repeatApplication";
     		}
         	int active = 0;
-        	String sql_insert = "INSERT INTO account (user_mail, password, sex, phone, identify_code, active) VALUES (?, ?, ?, ?, ?, ?)";
+        	String sql_insert = "INSERT INTO account (user_mail, password, sex, phone, identify_code, active, name) VALUES (?, ?, ?, ?, ?, ?, ?)";
             stmt = conn.prepareStatement(sql_insert);
             stmt.setString(1, user_mail);
             stmt.setString(2, password);
@@ -49,6 +49,7 @@ public class db_write {
             stmt.setString(4, phone);
             stmt.setInt(5, identify_code);
             stmt.setInt(6, active);
+            stmt.setString(7, name);
             stmt.executeUpdate();
             return "success";
         } catch (Exception e) {

@@ -53,6 +53,13 @@ public class EditPost extends HttpServlet {
 		    
 		    myBeans.content_dbread reader = new myBeans.content_dbread();
 		    Map<String, Object> post = reader.getPostById(id);
+		    System.out.print("replace");
+		    if (post != null && post.get("Content") != null) {
+		    	System.out.print("replace");
+		        String content = post.get("Content").toString();
+		        content = content.replaceAll("<br>", "\n"); 
+		        post.put("Content", content);
+		    }
 		    request.setAttribute("post", post);
 			request.getRequestDispatcher("editPost.jsp").forward(request, response);
 	}
@@ -69,6 +76,9 @@ public class EditPost extends HttpServlet {
 		String title = request.getParameter("title");
 	    String author = request.getParameter("author");
 	    String content = request.getParameter("content");
+	    if (content != null) {
+	        content = content.replaceAll("(\r\n|\n)", "<br>");
+	    }
 	    String password = request.getParameter("pwd");
 	    
 	    Integer pwd = null;

@@ -38,6 +38,7 @@ public class fgPwd extends HttpServlet {
 		String user_mail = request.getParameter("user");
 	    String sex = request.getParameter("sex");
 	    String phone = request.getParameter("phone");
+	    String baseurl = request.getParameter("baseurl");
 	    String msg;
 	    System.out.println(user_mail);
 	    System.out.println(phone);
@@ -59,7 +60,7 @@ public class fgPwd extends HttpServlet {
 	    }
 	    
 	    myBeans.sendMail mailSender = new myBeans.sendMail();
-	    boolean success = mailSender.sendPwdEmail(user_mail, pwd);
+	    boolean success = mailSender.sendPwdEmail(user_mail, pwd, baseurl);
 	    
 	    if(success) {
 	    	msg = "查詢成功：請至您的信箱收取密碼信件";

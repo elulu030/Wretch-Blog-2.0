@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List, java.util.Map" %>
+<%@ include file="/WEB-INF/config.jsp" %>
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -24,15 +25,30 @@
             <label for="author" class="form-label">作者暱稱</label>
             <input type="text" class="form-control" id="author" name="author" required maxlength="30" value="<%= post != null ? post.get("author") : "" %>">
         </div>
+         <div class="mb-3"> 
+				    <input class="form-check-input" type="checkbox" id="needPwd" onclick="togglePwdInput()">
+				    <label class="form-check-label" for="needPwd">需要密碼</label>
+				</div>
+                <div class="mb-3" id="pwdGroup" style="display: none;">
+                    <label for="pwd" class="form-label">密碼(限數字)</label>
+                    <input type="number" class="form-control" id="pwd" name="pwd" maxlength="15">
+                </div>
         <div class="mb-3">
             <label for="content" class="form-label">內容</label>
-            <textarea class="form-control" id="content" name="content" rows="7" required maxlength="2000"><%= post != null ? post.get("content") : "" %></textarea>
+            <textarea class="form-control" id="content" name="content" rows="7" required maxlength="2000"><%= post != null ? post.get("Content") : "" %></textarea>
         </div>
         <div class="d-grid gap-2">
             <button type="submit" class="btn btn-success btn-lg">儲存修改</button>
-            <a href="http://localhost:8080/jakartaee-hello-world/test_postList" class="btn btn-secondary btn-lg">返回列表</a>
+            <a href="${baseURL}/jakartaee-hello-world/test_postList" class="btn btn-secondary btn-lg">返回列表</a>
         </div>
     </form>
 </div>
+<script>
+    function togglePwdInput() {
+        const checkbox = document.getElementById("needPwd");
+        const pwdGroup = document.getElementById("pwdGroup");
+        pwdGroup.style.display = checkbox.checked ? "block" : "none";
+    }
+</script>
 </body>
 </html> 

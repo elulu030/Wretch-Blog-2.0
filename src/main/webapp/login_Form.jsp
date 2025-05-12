@@ -153,6 +153,8 @@ input{
             <div class="tab"></div>
             	<input type="text" id="register_password" name="register_password" placeholder="密碼" required>
             <div class="tab"></div>
+            	<input type="text" id="name" name="name" placeholder="小名" required>
+            <div class="tab"></div>
             	<input type="radio" name="sex" value="male" id="sex_male"> Male
 				<input type="radio" name="sex" value="female" id="sex_female"> Female
             <div class="tab"></div>

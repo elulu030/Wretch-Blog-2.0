@@ -30,19 +30,43 @@ public class content_dbread {
     
     public ArrayList<Map<String, Object>> getAllPosts(int userID) {
         ArrayList<Map<String, Object>> posts = new ArrayList<>();
-        
-        String sql = "SELECT ID, Title, Content, pwd, UserID, Author, created_at FROM content WHERE UserID = ? ORDER BY created_at DESC";
-        System.out.print("1");
+        String sql = "";
+        if(userID == 1) {
+        	sql = "SELECT ID, Title, Content, pwd, UserID, Author, created_at FROM content ORDER BY created_at DESC";
+        }else {
+        	 sql = "SELECT ID, Title, Content, pwd, UserID, Author, created_at FROM content WHERE UserID = ? ORDER BY created_at DESC";
+        }
+        System.out.print("1LL");
         try {
         	stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, userID);
+        	if (userID != 1) {
+        	    stmt.setInt(1, userID);
+        	}
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
             	Map<String, Object> post = new HashMap<>();
                 post.put("id", rs.getInt("ID"));
+                post.put("user_id", rs.getInt("userID"));
+                System.out.println(userID);
                 post.put("title", rs.getString("Title"));
                 post.put("author", rs.getString("Author"));
-                post.put("Content", rs.getString("Content"));
+                int pwd = rs.getInt("pwd");
+                if (rs.wasNull()) {
+                    post.put("pwd", null); 
+                } else {
+                    post.put("pwd", pwd); 
+                }
+                String rawContent = rs.getString("Content");
+                if (rawContent == null) rawContent = "";
+
+                StringBuilder formatted = new StringBuilder();
+                for (int i = 0; i < rawContent.length(); i++) {
+                    formatted.append(rawContent.charAt(i));
+                    if ((i + 1) % 50 == 0) {
+                        formatted.append("<br>");
+                    }
+                }
+                post.put("Content", formatted.toString());
                 post.put("created_at", rs.getTimestamp("created_at"));
                 posts.add(post);
             }
@@ -62,6 +86,7 @@ public class content_dbread {
     
     public Map<String, Object> getPostById(int id) {
         Map<String, Object> post = new HashMap<>();
+        
         String sql = "SELECT ID, Title, Content, pwd, UserID, Author, created_at FROM content WHERE ID = ?";
         
         try {
@@ -73,10 +98,25 @@ public class content_dbread {
                 post.put("id", rs.getInt("ID"));
                 post.put("title", rs.getString("Title"));
                 post.put("author", rs.getString("Author"));
-                post.put("content", rs.getString("Content"));
+                String rawContent = rs.getString("Content");
+                if (rawContent == null) rawContent = "";
+                
+                StringBuilder formatted = new StringBuilder();
+                for (int i = 0; i < rawContent.length(); i++) {
+                    formatted.append(rawContent.charAt(i));
+                    if ((i + 1) % 50 == 0) {
+                        formatted.append("<br>");
+                    }
+                }
+                post.put("Content", formatted.toString());
                 post.put("created_at", rs.getTimestamp("created_at"));
                 post.put("userID", rs.getInt("UserID"));
-                post.put("pwd", rs.getInt("pwd"));
+                int pwd = rs.getInt("pwd");
+                if (pwd==0) {
+                    post.put("pwd", null); 
+                } else {
+                    post.put("pwd", pwd); 
+                }
             }
             rs.close();
         } catch (Exception e) {

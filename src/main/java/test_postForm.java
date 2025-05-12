@@ -55,6 +55,9 @@ public class test_postForm extends HttpServlet {
 		String title = request.getParameter("title");
 	    String author = request.getParameter("author");
 	    String content = request.getParameter("content");
+	    if (content != null) {
+	        content = content.replaceAll("(\r\n|\n)", "<br>");
+	    }
 	    String password = request.getParameter("pwd");
 	    	
 	    int userID;
@@ -69,6 +72,7 @@ public class test_postForm extends HttpServlet {
 	    if (session != null && session.getAttribute("user_name") != null && session.getAttribute("user_id") != null) {
 	        try {
 	            userID = Integer.parseInt(session.getAttribute("user_id").toString());
+	            System.out.print(userID);
 	        } catch (NumberFormatException e) {
 	            e.printStackTrace();
 	            response.sendRedirect("login_Form.jsp");
@@ -87,7 +91,7 @@ public class test_postForm extends HttpServlet {
 	    	 	case "success":
 	    	 		String msg="新增成功！";
             		request.setAttribute("errorMessage", msg);
-            		request.getRequestDispatcher("postList.jsp").forward(request, response);
+            		request.getRequestDispatcher("/index").forward(request, response);
             		break;
 	    	 	default:
             		msg="發表失敗，請稍後再試！";
