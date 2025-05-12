@@ -238,6 +238,11 @@
         }
         
         function checkPwd(correctPwd, postId) {
+        	if (!userId || userId === "null") {
+            	alert("請先登入");
+                window.location.href = "/jakartaee-hello-world/login_Form.jsp";
+                return;
+            }
             const input = document.getElementById("inputPwd-" + postId).value;
             const contentDiv = document.getElementById("realContent-" + postId);
             const errorDiv = document.getElementById("error-" + postId);
