@@ -117,7 +117,7 @@ input{
     if (login_user == null) login_user = "";
 %>
 	<div class="system_name">
-		<h2>○○系統</h2>
+		<h2>登入與註冊</h2>
   	</div>
 	  <div class="login_page">
 		<div id="container1">
@@ -126,7 +126,8 @@ input{
 	<form action="/jakartaee-hello-world/login" id="myform" method="post">
     	<input type="text" name="user" id="user"  placeholder="帳號" value="<%= user_name %>" required>
 		<label style="font-size: 12px;">
-  			<input type="checkbox" name="remember" id="remember" value="true"> 記住我
+		  <input type="checkbox" name="remember" id="remember" value="true"
+		    <%= (user_name != null && !user_name.isEmpty()) ? "checked" : "" %>> 記住我
 		</label><br>
 		<div class="tab"></div>
     	<input type="password" name="login_password" id="login_password" placeholder="密碼" required><br>
@@ -239,8 +240,12 @@ input{
 	window.onload = function () {
         var msg = document.getElementById("msg");
         <% if (errorMessage != null) { %>
-            msg.innerHTML = "<%= errorMessage %>";
-        <% } %>
+		    msg.innerHTML = "<%= errorMessage %>";
+		    <% if ("登入失敗：密碼錯誤".equals(errorMessage)) { %>
+			    alert("<%= errorMessage %>");
+	            window.location.href = "/jakartaee-hello-world/login";
+		    <% } %>
+		<% } %>
         <% if (CodeInput != null && CodeInput) { %>
             var identifyCode = prompt("請輸入識別碼：", "");
 

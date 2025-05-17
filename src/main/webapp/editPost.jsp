@@ -15,11 +15,11 @@
     <%
 	Map<String, Object> post = (Map<String, Object>) request.getAttribute("post");
 	%>
-    <form method="post" action="/jakartaee-hello-world/EditPost">
+    <form method="post" action="/jakartaee-hello-world/EditPost" onsubmit="return validateForm()">
         <input type="hidden" name="id" value="<%= post != null ?  post.get("id") : "" %>">
         <div class="mb-3">
             <label for="title" class="form-label">標題</label>
-            <input type="text" class="form-control" id="title" name="title" required maxlength="100" value="<%= post != null ? post.get("title") : "" %>">
+            <input type="text" class="form-control" id="title" name="title" required maxlength="30" value="<%= post != null ? post.get("title") : "" %>">
         </div>
         <div class="mb-3">
             <label for="author" class="form-label">作者暱稱</label>
@@ -31,7 +31,7 @@
 				</div>
                 <div class="mb-3" id="pwdGroup" style="display: none;">
                     <label for="pwd" class="form-label">密碼(限數字)</label>
-                    <input type="number" class="form-control" id="pwd" name="pwd" maxlength="15">
+                    <input type="text" class="form-control" id="pwd" name="pwd" maxlength="10" inputmode="numeric">
                 </div>
         <div class="mb-3">
             <label for="content" class="form-label">內容</label>
@@ -48,6 +48,22 @@
         const checkbox = document.getElementById("needPwd");
         const pwdGroup = document.getElementById("pwdGroup");
         pwdGroup.style.display = checkbox.checked ? "block" : "none";
+    }
+    
+    function validateForm() {
+        const needPwdChecked = document.getElementById("needPwd").checked;
+        if (needPwdChecked) {
+            const pwd = document.getElementById("pwd").value;
+            if (pwd.length > 10) {
+                alert("密碼長度不可超過10位");
+                return false; // 阻止送出
+            }
+            if (!/^\d*$/.test(pwd)) {
+                alert("密碼必須是純數字");
+                return false; // 阻止送出
+            }
+        }
+        return true; // 驗證通過允許送出
     }
 </script>
 </body>

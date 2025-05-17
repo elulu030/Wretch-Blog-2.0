@@ -51,10 +51,10 @@
     <div class="row justify-content-center">
         <div class="col-md-7 col-lg-6">
             <h2 class="text-center mb-4 nameless-header">無名小站致敬 - 發表新文章</h2>
-            <form class="post-form" method="post" action="/jakartaee-hello-world/test_postForm">
+            <form class="post-form" method="post" action="/jakartaee-hello-world/test_postForm" onsubmit="return validateForm()">
                 <div class="mb-3">
                     <label for="title" class="form-label">標題</label>
-                    <input type="text" class="form-control" id="title" name="title" required maxlength="100">
+                    <input type="text" class="form-control" id="title" name="title" required maxlength="30">
                 </div>
                 <%
 				    String userName = (String) session.getAttribute("user_name");
@@ -71,8 +71,8 @@
 				    <label class="form-check-label" for="needPwd">需要密碼</label>
 				</div>
                 <div class="mb-3" id="pwdGroup" style="display: none;">
-                    <label for="pwd" class="form-label">密碼(限數字)</label>
-                    <input type="number" class="form-control" id="pwd" name="pwd" maxlength="15">
+                    <label for="pwd" class="form-label">密碼(數字)</label>
+                     <input type="text" class="form-control" id="pwd" name="pwd" maxlength="10" inputmode="numeric">
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label">內容</label>
@@ -90,6 +90,22 @@
         const checkbox = document.getElementById("needPwd");
         const pwdGroup = document.getElementById("pwdGroup");
         pwdGroup.style.display = checkbox.checked ? "block" : "none";
+    }
+    
+    function validateForm() {
+        const needPwdChecked = document.getElementById("needPwd").checked;
+        if (needPwdChecked) {
+            const pwd = document.getElementById("pwd").value;
+            if (pwd.length > 10) {
+                alert("密碼長度不可超過10位");
+                return false; // 阻止送出
+            }
+            if (!/^\d*$/.test(pwd)) {
+                alert("密碼必須是純數字");
+                return false; // 阻止送出
+            }
+        }
+        return true; // 通過驗證，允許送出
     }
 </script>
 </body>

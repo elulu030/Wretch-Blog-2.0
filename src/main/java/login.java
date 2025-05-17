@@ -82,8 +82,6 @@ public class login extends HttpServlet {
 	            case "false_pass":
 	                msg = "登入失敗：密碼錯誤";
 	                request.setAttribute("errorMessage", msg);
-
-	                // 記住錯誤的使用者帳號一小時
 	                System.out.println(remember);
 	                if ("true".equals(remember)) {
 	                	Cookie cookie = new Cookie("user_name", user);
