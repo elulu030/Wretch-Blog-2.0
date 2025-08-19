@@ -1,0 +1,65 @@
+:root {
+    --primary-color: #DCC6E0;
+    --secondary-color: #A084CA;
+}
+
+/* 全局背景色 */
+body {
+    background-color: var(--primary-color);
+}
+
+/* 標題樣式 */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--secondary-color);
+}
+
+/* 按鈕樣式 */
+.btn {
+    border-radius: 15px;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: white;
+}
+
+.btn:hover {
+    background-color: #8a6db3;
+    border-color: #8a6db3;
+    color: white;
+}
+
+/* 卡片樣式 */
+.card {
+    border-radius: 15px;
+    background-color: white;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 導航欄樣式 */
+.navbar {
+    background-color: var(--secondary-color) !important;
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+}
+
+/* 表單元素樣式 */
+.form-control {
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(160, 132, 202, 0.25);
+}
+
+/* 自定義容器背景 */
+.container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+} 
